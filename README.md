@@ -1,17 +1,15 @@
-# Bench-test plan for Nomad Disconnected Clients feature
+# Standard Bench Test sequence for Nomad Disconnected Clients feature
 
-## Intro
+## Environment Setup
 
-<details>
-  <summary>Environment Setup</summary>
-* 1 server
-* 2 clients
-* My tests use the `Vagrantfile` from the Nomad repo
-* Server IP `192.168.56.11`
-* `curl` installed on development host
-* `iptables` available on client machine
-* `jq` installed on development host
-* Nomad cluster running
+- 1 server
+- 2 clients
+- My tests use the `Vagrantfile` from the Nomad repo
+- Server IP `192.168.56.11`
+- `curl` installed on development host
+- `iptables` available on client machine
+- `jq` installed on development host
+- Nomad cluster running
 </details>
 
 ## Check status of cluster
@@ -24,19 +22,44 @@ b02c891c  dc1  nomad-client02  <none>  false  eligible     ready
 16a35141  dc1  nomad-client01  <none>  false  eligible     ready
 ```
 
-## Run spread job
+## Run job
 
-### Job HCL with configured setting
+Several test jobs have been included in this repository as a convenience for different bench test cases. The list of jobs to test cases is in the link table below. I've also included links to specific instruction per test scenario if the test deviates from these instructions.
+
+- Healthy task that has not expired
+  - [spread.nomad](spread.nomad)
+  - This file serves as the test instructions for this scenario.
+- Failed task
+  - [fail.nomad jopspec](fail.nomad)
+  - [Test instructions](failed.md)
+- Job version updated
+  - [spread.nomad jopspec](spread.nomad)
+  - [job-version.nomad jopspec](job-version.nomad)
+  - [Test instructions](job-version.md)
+- No replacement task
+  - [no-replace.nomad jopspec](no-replace.nomad)
+  - [Test instructions](no-replace.md)
+- Expired task
+  - [expired.nomad jopspec](expired.nomad)
+  - [Test instructions](expired.md)
+- Failed replacement task
+  - [spread.nomad jopspec](spread.nomad)
+  - [Test instructions](failed-replacement.md)
+
+
+### Example Job HCL with configured setting
 
 <details>
-  <summary>Spread jobspec</summary>
+  <summary>Example jobspec</summary>
+  
 ```hcl
 job "spread" {
   datacenters = ["dc1"]
 
   group "cache" {
     count = 2
-
+  
+    # This is the setting that controls the disconnected client behavior
     max_client_disconnect = "1h"
 
     spread {
@@ -66,6 +89,7 @@ job "spread" {
   }
 }
 ```
+
 </details>
 
 ### Run job
