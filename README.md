@@ -1,4 +1,30 @@
-# Standard Bench Test sequence for Nomad Disconnected Clients feature
+# Bench Tests Nomad Disconnected Clients feature
+
+## Overview
+
+This repository contains test artifacts and istructi
+
+Several test jobs have been included in this repository as a convenience for different bench test cases. The list of jobs to test cases is in the link table below. I've also included links to specific instruction per test scenario if the test deviates from these instructions.
+
+- Healthy task that has not expired
+  - [spread.nomad](spread.nomad)
+  - This file serves as the test instructions for this scenario.
+- Failed task
+  - [fail.nomad jopspec](fail.nomad)
+  - [Test instructions](failed.md)
+- Job version updated
+  - [spread.nomad jopspec](spread.nomad)
+  - [job-version.nomad jopspec](job-version.nomad)
+  - [Test instructions](job-version.md)
+- No replacement task
+  - [no-replace.nomad jopspec](no-replace.nomad)
+  - [Test instructions](no-replace.md)
+- Expired task
+  - [expired.nomad jopspec](expired.nomad)
+  - [Test instructions](expired.md)
+- Failed replacement task
+  - [spread.nomad jopspec](spread.nomad)
+  - [Test instructions](failed-replacement.md)
 
 ## Environment Setup
 
@@ -23,29 +49,6 @@ b02c891c  dc1  nomad-client02  <none>  false  eligible     ready
 ```
 
 ## Run job
-
-Several test jobs have been included in this repository as a convenience for different bench test cases. The list of jobs to test cases is in the link table below. I've also included links to specific instruction per test scenario if the test deviates from these instructions.
-
-- Healthy task that has not expired
-  - [spread.nomad](spread.nomad)
-  - This file serves as the test instructions for this scenario.
-- Failed task
-  - [fail.nomad jopspec](fail.nomad)
-  - [Test instructions](failed.md)
-- Job version updated
-  - [spread.nomad jopspec](spread.nomad)
-  - [job-version.nomad jopspec](job-version.nomad)
-  - [Test instructions](job-version.md)
-- No replacement task
-  - [no-replace.nomad jopspec](no-replace.nomad)
-  - [Test instructions](no-replace.md)
-- Expired task
-  - [expired.nomad jopspec](expired.nomad)
-  - [Test instructions](expired.md)
-- Failed replacement task
-  - [spread.nomad jopspec](spread.nomad)
-  - [Test instructions](failed-replacement.md)
-
 
 ### Example Job HCL with configured setting
 
